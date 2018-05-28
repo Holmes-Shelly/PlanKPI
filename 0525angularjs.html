@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html ng-app='DataTableApp'>
+<head>
+    <meta charset = "utf-8">
+	<script src = "echarts.min.js"></script>
+    <script src="angular.min.js"></script>
+	<script src="DataTable.js"></script>
+	<title>data illustration</title>
+	<style>
+	body{
+	    font-family:Microsoft YaHei;
+		color:#848484;
+	}
+	.arow{
+	    width:1200px;
+		margin:0 auto;
+        border-bottom:1px solid #e4e4e4;
+		//padding-top:10px;
+		//padding-bottom:10px;
+		overflow:hidden;
+	}
+	.nav{
+	    width:400px;
+		float:left;
+		font-size:20px;
+		padding-left:20px;
+	}
+	.content{
+		width:220px;
+		margin:10px 15px;
+		float:left;
+		border:1px solid #e4e4e4;
+		border-radius:5px;
+		text-align:center;
+		background:#e4e4e4;
+		color:black;
+
+	}
+	a:link, a:visited{
+	    color:#bbbbbb;
+	    text-decoration:none;
+	}
+	.NavTag{
+	    margin-left:30px;
+		padding:20px 0;
+		float:left;
+	}
+	a:hover, a:active, .NavTag:hover{
+	    color:#848484;
+	}
+	.aRowInDiv{
+	    border-bottom:1px dashed #e4e4e4;
+		padding:10px 0;
+		overflow:hidden;
+	}	
+	.ParaNav{
+	    float:left;
+		text-align:center;
+		height:60px;
+		width:100px;
+		padding-top:20px;
+	}
+	.ParaButton{
+	    float:left;
+		text-align:center;
+		height:50px;
+		width:130px;
+		padding-top:25px;
+		font-size:20px;
+		border:1px solid;
+		border-radius:5px;
+	}
+	#PlanChart{
+	    padding-top:25px;
+	    height:400px;
+		width:690px;
+		//border:1px solid #e4e4e4;
+	    float:left;
+	}
+	#PlanPara{
+	    height:400px;
+		width:490px;
+		//border:1px solid #e4e4e4;
+	    float:right;
+	}
+	#HeadNav{
+	    position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		color:#bbbbbb;
+	    background-color:#f6f6f6;
+		border:1px solid #e4e4e4;
+		position:fixed;
+		overflow:hidden;
+		z-index:1;
+	}
+	</style>
+</head>
+<body ng-controller="DataTableController as dataShow">
+    <div id="HeadNav">
+	  <div class="NavTag">
+	  生产准备工作数据指标盘
+	  </div>
+	  <div class="NavTag">
+	  2018年各部门绩效考核项
+	  </div>
+      <div class="NavTag">
+	  <a href="!1206(pre edition).html">生产准备工作数据指标盘(2017版)</a>
+	  </div> 	  
+	</div>
+	<div style="height:50px;"></div>
+	<div class="arow" name="ChartandPara">
+	 <div id="PlanChart"></div>
+     <div id="PlanPara">
+	  <div style="border-bottom:1px dashed #e4e4e4;">
+       <p style="color:black; font-size:24px">生产准备领域计划</p>
+	   <p style="font-size:12px">一次做好 持续改进</h2>
+	  </div>
+	  <div class="aRowInDiv">
+       <div class="ParaNav">2017年</br>计划完成</div>
+	   <div class="ParaButton" style="border-color:#d78064">302项</div>
+       <div class="ParaNav">2017年</br>实际完成</div>
+	   <div class="ParaButton" style="border-color:#56a3ad">300项</div>
+	  </div>
+	  <div class="aRowInDiv">
+       <div class="ParaNav">2017年</br>单月最多</div>
+	   <div class="ParaButton" style="border-color:#d78064">6月/30项</div>
+       <div class="ParaNav">2017年</br>单月最少</div>
+	   <div class="ParaButton" style="border-color:#56a3ad">4月/12项</div>
+	  </div>
+	  <div class="aRowInDiv">
+       <div class="ParaNav">2017年</br>平均每月</div>
+	   <div class="ParaButton">21.7项</div>
+	  </div>
+	 </div>
+	</div>
+	<div class="arow" name="Details">
+	<p style="font-weight:bold; font-size:24px">各项指标一览</p>
+	</div>
+	
+	<div class="arow" name="FirstRow">
+	 <div class="nav">
+	 <p>核安全与辐射防护</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.firstRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+	
+	<div class="arow" name="SecondRow">
+	 <div class="nav">
+	 <p>生产准备</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.secondRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+	
+	<div class="arow" name="ThirdRow">
+	 <div class="nav">
+	 <p>生产管理</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.thirdRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+
+	<div class="arow" name="ForthRow">
+	 <div class="nav">
+	 <p>系统设备/状态</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.forthRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+	
+	<div class="arow" name="FifthRow">
+	 <div class="nav">
+	 <p>生产采购</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.fifthRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+
+	<div class="arow" name="SixthRow">
+	 <div class="nav">
+	 <p>环境保护及职业健康</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.sixthRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+	
+	<div class="arow" name="SeventhRow">
+	 <div class="nav">
+	 <p>文件质量</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.seventhRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+	
+	<div class="arow" name="EighthRow">
+	 <div class="nav">
+	 <p>调试管理</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.eighthRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+	
+	<div class="arow" name="NinthRow">
+	 <div class="nav">
+	 <p>文件质量</p>
+	 </div>
+	 <div style="overflow:hidden;">
+	 <div class="content" ng-repeat="item in dataShow.ninthRow" style="background:{{ item.color }}">
+	 {{ item.name }}</br>{{ item.quantity }}
+	 </div>
+	 </div>
+	</div>
+	
+	<script type = "text/javascript">
+	    var myChart = echarts.init(document.getElementById('PlanChart'));
+		var option = {
+    title: {
+        text: '2017年计划完成情况',
+        subtext: '数据虚构'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['计划','实际','年计划','年实际']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            dataView: {readOnly: false},
+            magicType: {type: ['line', 'bar']},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis:  {
+        type: 'category',
+        boundaryGap: false,
+        data: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
+        {
+            name:'计划',
+            type:'line',
+            data:[23, 7, 28, 30, 22, 32, 28, 13, 14, 26, 26, 11],
+        },
+        {
+            name:'实际',
+            type:'line',
+            data:[23, 10, 24, 32, 20, 31, 30, 10, 14, 23],
+            markPoint: {
+                data: [
+					{type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'},
+                ]
+            }
+        },
+		{
+            name:'年计划',
+            type:'line',
+            data:[23, 30, 58, 88, 110, 142, 170, 183, 197, 223, 249, 359],
+			markPoint: {
+                data: [
+                    {name: '备注', xAxis: 11, yAxis: 359}
+                ]
+            },
+        },		
+		{
+            name:'年实际',
+            type:'line',
+            data:[23, 33, 57, 89, 109, 140, 170, 180, 194, 217],
+			markPoint: {
+                data: [
+                    {name: '备注', xAxis: 9, yAxis: 217}
+                ]
+            },
+        }
+    ]
+};
+        myChart.setOption(option);
+	</script>
+</body>
+</html>
