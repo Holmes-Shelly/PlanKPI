@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>生产准备计划指标</title>
+<script src="echarts.min.js"></script>
+<script language="javascript" type="text/javascript">   
+    function scroll(obj) {  
+        var tmp = (obj.scrollLeft)++;  
+        //当滚动条到达右边顶端时  
+        if (obj.scrollLeft==tmp) obj.innerHTML += obj.innerHTML;  
+        //当滚动条滚动了初始内容的宽度时滚动条回到最左端  
+        if (obj.scrollLeft>=obj.firstChild.offsetWidth) obj.scrollLeft=0;  
+    }   
+</script>
+<style type = "text/css">
+body{
+  font-family:KaiTi
+  }
+h1{
+  width:1188px;
+  border:1px solid black;
+  border-radius:5px;
+  color:white;
+  background-color:blue;
+  text-align:center;
+  padding:5px 0 5px 0;
+  margin:0 auto;
+  margin-bottom:5px;
+  }
+#twocharts{
+  margin:0 auto;
+  width:1200px
+  }
+#planchart{
+  width:700px;
+  height:400px;
+  float:left;
+  margin:0 0 0 5px;
+  border:1px solid;
+  border-radius:5px
+  }
+#chartandword{
+  width:480px;
+  hegiht:400px;
+  float:right;
+  margin:0 5px 0 0;
+  border:1px solid;
+  border-radius:5px
+  }
+#scrollobj{
+  margin:0 0 5px 0;
+  font-size:20px
+  }
+table,td,th{
+  border-radius:5px;
+  overflow:hidden;
+  border:1px solid black;
+  }
+table{
+  margin:0 auto;
+  border:none;
+  border-spacing:5px;
+  width:1200px;
+  font-size:20px;
+  text-align:center;
+  table-layout:fixed
+  }
+td{
+  background-color:#00ff00
+  }
+th
+  {
+  background-color:blue;
+  color:white;
+  }
+</style>
+</head>
+<body>
+    <h1>生产准备工作数据指标盘（2017年12月）</h1>
+	<div id = "twocharts">
+    <div id = "planchart" style="width:700px;height:400px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('planchart'));
+		var option = {
+    title: {
+        text: '2017年计划完成情况',
+        subtext: '数据虚构'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['计划','实际','年计划','年实际']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            dataView: {readOnly: false},
+            magicType: {type: ['line', 'bar']},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis:  {
+        type: 'category',
+        boundaryGap: false,
+        data: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
+        {
+            name:'计划',
+            type:'line',
+            data:[23, 7, 28, 30, 22, 32, 28, 13, 14, 26, 26, 11],
+        },
+        {
+            name:'实际',
+            type:'line',
+            data:[23, 10, 24, 32, 20, 31, 30, 10, 14, 23],
+            markPoint: {
+                data: [
+					{type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'},
+                ]
+            }
+        },
+		{
+            name:'年计划',
+            type:'line',
+            data:[23, 30, 58, 88, 110, 142, 170, 183, 197, 223, 249, 359],
+			markPoint: {
+                data: [
+                    {name: '备注', xAxis: 11, yAxis: 359}
+                ]
+            },
+        },		
+		{
+            name:'年实际',
+            type:'line',
+            data:[23, 33, 57, 89, 109, 140, 170, 180, 194, 217],
+			markPoint: {
+                data: [
+                    {name: '备注', xAxis: 9, yAxis: 217}
+                ]
+            },
+        }
+    ]
+};
+        myChart.setOption(option);
+    </script>
+	<div id = "chartandword">
+	<div id = "KPI" style = "width:480px; height:375px"></div>
+	<script type = "text/javascript">
+	    var KPIChart = echarts.init(document.getElementById('KPI'));
+		var option = { 
+    tooltip : { 
+        formatter: "{a} <br/>{b} : {c}%" 
+    }, 
+    series : [ 
+        { 
+            name:'业务指标', 
+            type:'gauge', 
+            detail : {formatter:'{value}%'}, //仪表盘显示数据 
+            axisLine: { //仪表盘轴线样式 
+                lineStyle: { 
+                    width: 20 
+                } 
+            }, 
+            splitLine: { //分割线样式 
+                length: 20 
+            }, 
+            data:[{value: 83.3, name: '行动项完成率'}] 
+        } 
+    ] 
+    }; 
+    KPIChart.setOption(option); 
+	</script>
+    <DIV id="scrollobj" style="white-space:nowrap;overflow:hidden;width:480px; height:20px"><span>TOP1:请技术准备组尽快启动环境监测站承包商外委采购工作。TOP2:关于2017年度非新毕业学生的培训需求表，各科组要认真研究讨论，考虑要全面和细致。既要考虑到专业骨干的培养需求，也要详细写明拟培训时间计划。TOP3:请各组安排好管理程序和教材的编制进度，确保按时完成。</span></DIV>  
+    <script language="javascript" type="text/javascript">    
+    setInterval("scroll(document.getElementById('scrollobj'))",20); 
+	</script>
+	</div>
+	<table>
+ <tr>
+  <th>核安全与辐射防护</th>
+  <th>生产准备</th>
+  <th>生产管理</th>
+  <th>系统/设备状态</th>
+  <th>生产采购</th>
+  <th>环境保护及职业健康</th>
+  <th>文件质量</th>
+  <th>调试管理</th>
+  <th>移交接产</th>
+ </tr>
+ <tr>
+  <td title = "统计周期内，发生的潜在影响导致燃料组件完整性和安全受到损害的事件">威胁燃料安全的事件次数</td>
+  <td title = "按照最新版本的《生产准备大纲》和《生产准备总体计划》中生产准备里程碑的计划时间为标准，统计该周期内里程碑完成情况。（在每个生产准备里程碑完成后统计）" style='background-color:red'>里程碑验收按计划完成</td>
+  <td title = "机组首次临界运行后至商运前，在统计区间内，由于设备故障、人因操作失误或其他无法抗拒的意外因素导致反应堆保护系统逻辑动作而引发的非计划停堆次数。该停堆次数包括非计划自动停堆次数和非计划手动停堆次数之和">首次临界后非计划停堆次数</td>
+  <td title = "生产准备期间设备TOM后，因人因维护或操作失误，或者设备本身设计、安装、调试等原因直接导致的设备损坏，经济损失在5000万元人民币及以上的事故，或者由于设备损坏造成损失等效满功率大于等于7.3天的设备损坏事故">重大设备损坏事件次数</td>
+  <td title = "统计周期内，出现需等备件工单，1 个月内未及时提报采购需求计划的工单数（采购需求计划发送至分管领导）；对于紧急工单，如出现等备件情况，24 小时内未发起《紧急物资采购审批单》报公司领导审批的次数或未申请合同待执行的次数">采购不及时工作等备件数</td>
+  <td title = "统计周期内，被定为环境突发事件的次数">突发环境事件发生次数</td>
+  <td title = "在统计时间点，实际完成的生产技术文件编写数量与计划编写的程序总体数量百分比">生产技术文件编写完成率</td>
+  <td title = "调试H点实际到场数/H点选取数">调试H点到场率</td>
+  <td title = "TOP、BHO移交后工程尾项的及时关闭率（工程尾项指由于上游设计、设备和建安等原因导致的暂未安装完成的项目，移交调试后需按调试需求实施安装处理）">工程尾项处理及时关闭率</td>
+ </tr>
+ <tr>
+  <td title = "统计周期内，辐射防护领域监督、监查工作未按计划实施次数">辐射防护监查未完成次数</td>
+  <td title = "以生产准备年度计划作为考核载体，以部门为单位，统计周期内，该部门实际完成任务数量与计划应完成任务数量比值">生产准备年度计划完成率</td>
+  <td title = "机组首次装料后至商运前，在统计区间内，发生按照国际核事件分级表（INES）标准界定为1级的运行事件（LOE）的数量" style='background-color:yellow'>1级以上运行事件数量</td>
+  <td title = "机组非正常停电事件发生的次数。因电网方面原因导致的不考核">机组电源丧失事件次数</td>
+  <td title = "商运后，因缺少备件而导致工作无法按计划执行，需要提出紧急备件采购的需求的次数">紧急备件采购需求数量</td>
+  <td title = "统计周期内，被地方环保部门处罚的环境事件次数">被地方环保部门处罚的事件</td>
+  <td title = "统计周期内，技术文件实际生效数量与按计划应生效的数量的比值">生产技术文件验证生效率”</td>
+  <td title = "调试W点实际到场数/W点选取数" style='background-color:red'>调试W点到场率</td>
+  <td title = "统计周期内，TOP实际完成签字移交数量与计划签字移交数量的比值">TOP按计划移交完成率</td>
+ </tr>
+ <tr>
+  <td title = "未取得辐射防护授权开展辐射工作；未办理RWP，开展辐射工作">严重违反辐射防护管理规定</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，已按优先级响应的重要SSC工作数量与重要SSC工作总数的比值，反映计划工程师对重要SSC工作的响应及时率">重要SSC缺陷响应及时率</td>
+  <td title = "机组非正常停水（含生活水/工业水/消防水/除盐水）事件发生的次数">机组水源丧失事件次数</td>
+  <td title = "商运后，生产部门提出紧急备件采购流程，按照紧急备件采购到货时间规定，因超出规定到货时间，导致工作延误的次数">紧急备件采购到货延误次数</td>
+  <td title = "统计周期内，三废违规排放次数">公司三废违规排放次数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "由国核联队编制的调试试验程序送达业主进行审查过程中，需要在规定时间内审查完成并返回意见，该指标为统计周期内，业主方已完成审查并返回意见的数量与计划审查数量的比值">调试程序审查意见返回率</td>
+  <td title = "统计周期内，TOM实际完成签字移交数量与计划签字移交数量的比值">TOM按计划移交完成率</td>
+ </tr>
+ <tr>
+  <td title = "包括无许可证进出厂、越点运输、违规存放和使用、违规转借等">放射源违规行为</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，重要设备预防性维修超出1/4维护周期的次数">重要设备预防性维修超期数</td>
+  <td title = "机组非正常停气（厂用/仪用压空）事件发生的次数">机组气源丧失事件次数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，发生职业病病例次数">发生职业病病例次数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "生产人员在示范工程调试参与过程中发生设备误动、误操作，或者因技能不足导致的设备损坏等人因失误发生的次数">调试参与中人因失误次数</td>
+  <td title = "每月完成的TOTO移交数/每月计划完成的TOTO移交数" style='background-color:yellow'>TOTO移交按计划完成率</td>
+ </tr>
+ <tr>
+  <td title = "统计周期内发生A、B、C 类辐射防护违规行为次数">辐射防护A/B/C类违规行为</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，工作准备过程中，各专业未能有效识别中、高风险工作的次数/未严格执行中、高风险管理方案措施的次数">工作活动中、高风险识别/控制失效次数</td>
+  <td title = "根据INPO 设备可靠性指标（ERI）总体颜色定义：ERI得分＜60，为红灯；60≤ERI 得分＜89，为黄灯；ERI 得分≥89，为绿灯。
+ERI 共17项指标，目前有9 项指标可以开展统计。为保证统计指标准确性和有效性，采用ERI得分率来替代ERI 得分作为指标值
+">TOTO设备可靠性水平红灯次数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内污水达标次数与本周期应该监测次数的比值为本月生活污水排放达标率">厂内生活污水排放达标率</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "根据每月发布的BHO移交计划，统计计划完成情况">BHO移交按计划完成率</td>
+ </tr>
+ <tr>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，实际完成的预防性维修数量与计划完成的预防性维修数量的比值" style='background-color:red'>预防性维修计划完成率</td>
+  <td title = "机组非正常停暖（考虑厂用/仪用气体）事件发生的次数">机组暖源丧失事件次数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，申请延期的TOM/TOTO/BHO联检意见占本周期内应完成的联检意见总数的比值">联检意见延期率</td> 
+ </tr>
+ <tr>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，因现场工作风险评估以及防范措施不到位导致存在潜在的异物进入不应进入的重要敏感构筑物、系统、设备风险的次数以及屏障失效的次数，反映FME管理控制水平">FME失效次数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，已关闭的联检意见与按计划应关闭的联检意见的比值" style='background-color:red'>遗留项清除率</td>
+ </tr>
+ <tr>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，因准备质量问题被退回的工作包数量与提交给生产计划部、运行部的工作文件包总数的比值">工作文件包退包率</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+ </tr>
+ <tr>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，1级工单隔离超过1个小时未响应的数量">1级工单隔离/准备响应异常数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+ </tr>
+ <tr>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，发布三天滚动计划项目的计划开工数量与计划项目总数量的比值，反映按计划执行能力，控制电站缺陷能力">工单计划开工/完工率</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+ </tr>
+ <tr>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，在规定时间间隔里(100 天内)，因维修质量导致重复性维修次数。（按工单数）">重复性维修数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+ </tr>
+ <tr>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，功能再鉴定一次成功的次数与需进行功能再鉴定的工单总数量的比值，反映设备经过维修后可以执行系统功能的能力">功能再鉴定一次合格率</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+ </tr>
+ <tr>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "统计周期内，工作许可证到期未完成延期手续的次数">工作许可证超期数</td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+  <td title = "" style='border:none;background-color:white'></td>
+ </tr>
+</table>
+</body>
+</html>
